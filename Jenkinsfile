@@ -22,7 +22,7 @@ java -version'''
 
     stage('Deploy') {
       steps {
-        sh 'mvn clean deploy'
+        sh 'ls'
       }
     }
 
