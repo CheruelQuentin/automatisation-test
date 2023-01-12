@@ -20,9 +20,9 @@ java -version'''
       }
     }
 
-    stage('Execute jar') {
+    stage('Deploy') {
       steps {
-        sh 'java -jar gosecuri.jar /Documents/mspr;pwd'
+        sh 'ls'
       }
     }
 
