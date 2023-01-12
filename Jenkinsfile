@@ -30,13 +30,13 @@ java -version'''
         if(artifactExists) {
             echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
             nexusArtifactUploader(
-                nexusVersion: NEXUS_VERSION,
-                protocol: NEXUS_PROTOCOL,
-                nexusUrl: NEXUS_URL,
+                nexusVersion: "nexus3",
+                protocol: "HTTP",
+                nexusUrl: "http://localhost:8081",
                 groupId: pom.groupId,
                 version: pom.version,
-                repository: NEXUS_REPOSITORY,
-                credentialsId: NEXUS_CREDENTIAL_ID,
+                repository: "http://localhost:8081/repository/maven-nexus-repo/",
+                credentialsId: "jenkins",
                 artifacts: [
                     [artifactId: pom.artifactId,
                     classifier: '',
@@ -53,5 +53,6 @@ java -version'''
         }
       }
     }
+
   }
 }
