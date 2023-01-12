@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Go Securi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="left-part">
+        <img src="../assets/images/logo.PNG" alt="logo" class="logo" />
+      </div>
+      <div class="middle-part">
+        <h1>Liste des agents</h1>
+      </div>
+    </div>
+    <div class="container">
+      <div class="agents">
+        <a href="#" id="sconnor" class="disabled">Sarah Connor</a>
+        <a href="#" id="cberthier" class="disabled">Corinne Berthier</a>
+        <a href="#" id="jmacclane" class="disabled">John MacClane</a>
+        <a href="#" id="afoley" class="disabled">Albert Foley</a>
+        <a href="#" id="mriggs" class="disabled">Marc Riggs</a>
+        <a href="#" id="jwest" class="disabled">James West</a>
+        <a href="#" id="sholmes" class="disabled">Sabrina Holmes</a>
+        <a href="#" id="jrouletabille" class="disabled">Julien Rouletabille</a>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bolder;
+  }
+
+  .logo {
+    width: 200px;
+  }
+
+  .header {
+    display: flex;
+    padding: 50px;
+  }
+
+  .header .left-part {
+    display: flex;
+    justify-content: left;
+  }
+
+  .header .middle-part {
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+
+  .container .agents {
+    display: flex;
+    flex-direction: column;
+    margin: 100px 0 0 0;
+  }
+
+  .container .agents a {
+    display: flex;
+    flex-direction: row-reverse;
+    align-self: flex-start;
+    width: max-content;
+    margin: 15px 0 0 90px;
+    font-size: 18px;
+    color: black;
+  }
+
+  .disabled {
+    color: currentColor;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 800px){
+    .header{
+      flex-direction: column;
+    }
+
+    .header .left-part{
+      justify-content: center;
+    }
+
+    .header .middle-part{
+      margin: 25px 0 0 0;
+      justify-content: center;
+    }
+  }
+
+</style>
