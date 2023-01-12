@@ -67,6 +67,15 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-deploy-plugin</artifactId>
+              <version>2.8.2</version>
+              <configuration>
+                <altDeploymentRepository>releases::default::http://http://localhost:8081/nexus/content/repositories/releases</altDeploymentRepository>
+                <altSnapshotDeploymentRepository>snapshots::default::http://http://localhost:8081/nexus/content/repositories/snapshots</altSnapshotDeploymentRepository>
+              </configuration>
+            </plugin>
         </plugins>
     </build>
 
