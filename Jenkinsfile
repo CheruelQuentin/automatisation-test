@@ -19,6 +19,18 @@ java -version'''
         sh 'mvn clean;mvn install ;mvn compile assembly:single;'
       }
     }
+    stage ('deploy to Nexus') {
+          steps {
+              container ('maven') {
+                  sh 'mvn deploy -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-snapshots/'
+              }
+          }
+      }
+    stage ('upload') {
+        steps {
+            archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+        }
+    }
 
     stage('Deploy') {
       steps {
