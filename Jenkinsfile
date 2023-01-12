@@ -44,6 +44,7 @@ java -version'''
         sh 'mvn clean;mvn install ;mvn compile assembly:single;'
       }
     }
+
     stage('Get info from POM') {
           steps {
             script {
@@ -55,14 +56,9 @@ java -version'''
                 filepath = "target/${artifactId}-${version}.jar"
                 isSnapshot = version.endsWith("-SNAPSHOT")
             }
-            echo groupId
-            echo artifactId
-            echo packaging
-            echo version
-            echo filepath
-            echo "isSnapshot: ${isSnapshot}"
           }
       }
+
       stage('Build') {
           steps {
               sh 'mvn clean package'
@@ -72,9 +68,8 @@ java -version'''
           when { expression { isSnapshot } }
           steps {
               sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Durl=${nexusUrl}/repository/${nexusRepoSnapshot} -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
-
           }
-
+      }
       stage('Push RELEASE to Nexus') {
           when { expression { !isSnapshot } }
           steps {
@@ -82,5 +77,4 @@ java -version'''
           }
       }
   }
-}
 }
