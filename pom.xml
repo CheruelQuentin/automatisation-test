@@ -12,14 +12,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
-    <servers>
-        <server>
-            <id>nexus</id>
-            <username>admin</username>
-            <password>admin</password>
-        </server>
-    </servers>
     <dependencies>
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -82,6 +74,16 @@
             <url>http://nexus3:8081/repository/maven-nexus-repo/</url>
             <mirrorOf>*</mirrorOf>
         </mirror>
-</mirrors>
+    </mirrors>
+
+    <settings>
+        <servers>
+            <server>
+                <id>nexus</id>
+                <username>admin</username>
+                <password>admin</password>
+            </server>
+        </servers>
+    </settings>
 
 </project>
