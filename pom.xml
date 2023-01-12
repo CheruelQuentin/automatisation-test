@@ -14,11 +14,11 @@
     </properties>
 
     <servers>
-    <server>
-        <id>nexus3</id>
-        <username>admin</username>
-        <password>admin</password>
-    </server>
+        <server>
+            <id>nexus</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
     </servers>
     <dependencies>
         <dependency>
@@ -77,11 +77,11 @@
         </plugins>
     </build>
     <mirrors>
-  <mirror>
-    <id>nexus</id>
-    <url>http://nexus3:8081/repository/maven-nexus-repo/</url>
-    <mirrorOf>*</mirrorOf>
-  </mirror>
+        <mirror>
+            <id>nexus</id>
+            <url>http://nexus3:8081/repository/maven-nexus-repo/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
 </mirrors>
 
 </project>
