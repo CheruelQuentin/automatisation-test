@@ -21,9 +21,7 @@ java -version'''
     }
     stage ('deploy to Nexus') {
           steps {
-              container ('maven') {
-                  sh 'mvn deploy -DaltDeploymentRepository=nexus::default::http://nexus3:8081/repository/maven-nexus-repo/'
-              }
+            sh 'mvn deploy -DaltDeploymentRepository=nexus::default::http://nexus3:8081/repository/maven-nexus-repo/'
           }
       }
     stage ('upload') {
