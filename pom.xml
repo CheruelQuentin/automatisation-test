@@ -68,22 +68,4 @@
             </plugin>
         </plugins>
     </build>
-    <mirrors>
-        <mirror>
-            <id>nexus</id>
-            <url>http://nexus3:8081/repository/maven-nexus-repo/</url>
-            <mirrorOf>*</mirrorOf>
-        </mirror>
-    </mirrors>
-
-    <settings>
-        <servers>
-            <server>
-                <id>nexus</id>
-                <username>admin</username>
-                <password>admin</password>
-            </server>
-        </servers>
-    </settings>
-
 </project>
