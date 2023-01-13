@@ -50,7 +50,11 @@ pipeline {
             echo "isSnapshot: ${isSnapshot}"
           }
       }
-
+    stage('SonarQube') {
+      steps {
+        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_b0f241d10c6997fab010bd36634a57a2c4935b2a'
+      }
+    }
     stage('Build') {
         steps {
             sh 'mvn clean package'
@@ -69,10 +73,6 @@ pipeline {
         nexusPublisher(nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]])
       }
     }
-    stage('SonarQube') {
-      steps {
-        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_b0f241d10c6997fab010bd36634a57a2c4935b2a'
-      }
-    }
+
   }
 }
