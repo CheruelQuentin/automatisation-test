@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Mvn and Java version') {
       steps {
-        sh '''mvn --version;        
-java -version'''
+        sh '''mvn --version;java -version'''
       }
     }
 
@@ -42,23 +41,16 @@ java -version'''
     }
 
     stage('Push SNAPSHOT to Nexus') {
-      when { expression { isSnapshot} }
-      steps {
-        sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Durl=${nexusUrl}/repository/${nexusRepoSnapshot} -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
+          when { expression { isSnapshot } }
+          steps {
+              sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Durl=${nexusUrl}/repository/${nexusRepoSnapshot} -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
+          }
       }
-    }
-
-    stage('Push RELEASE to Nexus') {
-      when {
-        expression {
-          !isSnapshot
-        }
-
+      stage('Push RELEASE to Nexus') {
+          when { expression { !isSnapshot } }
+          steps {
+            nexusPublisher nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]]
+          }
       }
-      steps {
-        nexusPublisher(nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]])
-      }
-    }
-
   }
 }
