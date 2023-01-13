@@ -7,7 +7,7 @@ nous avons mis en place un Jenkins connecter à un serveur Nexus afin de déploy
 afin de conserver une qualité de code optimal.
 Notre pipeline va vérifier les versions java et maven ensuite elle va executer les tests unitaires, vérifier le taux de coverage via sonarqube, créer un jar, récupérer les infos du pom.xml, build le projet 
 afin de générer un fichier .jar ensuite elle va publier sur nexus.
-Le projet est package sous un docker compose afin qu'il soit un même network.
+Les 3 images (jenkins, nexus, sonarkube) sont dans un docker compose afin qu'elles soient dans un même network et pour faciliter le lancement du projet.
 
 Difficultés rencontrés :
 La communication entre nexus et jenkins, ansi que la communication entre jenkins et sonarqube qui nous a occuper quasiment deux jours.
