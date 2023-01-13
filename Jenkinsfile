@@ -1,20 +1,9 @@
-  def nexusId = 'nexus_localhost'
-  def nexusUrl = 'http://localhost:8081'
-  def mavenRepoId = 'nexusLocal'
-  def nexusRepoSnapshot = "maven-snapshots"
-  def nexusRepoRelease = "maven-releases"
-  def groupId = ''
-  def artefactId = ''
-  def filePath = ''
-  def packaging = ''
-  def version = ''
-  def isSnapshot = true
 pipeline {
   agent any
   stages {
     stage('Mvn and Java version') {
       steps {
-        sh '''mvn --version;java -version'''
+        sh 'mvn --version;java -version'
       }
     }
 
@@ -57,18 +46,29 @@ pipeline {
       }
     }
 
-
     stage('Push SNAPSHOT to Nexus') {
-          when { expression { isSnapshot } }
-          steps {
-              sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Dusername='admin' -Dpwd='admin' -Durl=${nexusUrl}/repository/${nexusRepoSnapshot}/ -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
-          }
+      when {
+        expression {
+          isSnapshot
+        }
+
       }
-      stage('Push RELEASE to Nexus') {
-          when { expression { !isSnapshot } }
-          steps {
-            nexusPublisher nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]]
-          }
+      steps {
+        sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Dusername='admin' -Dpwd='admin' -Durl=${nexusUrl}/repository/${nexusRepoSnapshot}/ -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
       }
+    }
+
+    stage('Push RELEASE to Nexus') {
+      when {
+        expression {
+          !isSnapshot
+        }
+
+      }
+      steps {
+        nexusPublisher(nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]])
+      }
+    }
+
   }
 }
