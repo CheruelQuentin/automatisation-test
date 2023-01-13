@@ -1,3 +1,16 @@
+def nexusId = 'nexus_localhost'
+def nexusUrl = 'http://localhost:8081'
+def mavenRepoId = 'nexusLocal'
+def nexusRepoSnapshot = "maven-snapshots"
+def nexusRepoRelease = "maven-releases"
+def groupId = ''
+def artefactId = ''
+def filePath = ''
+def packaging = ''
+def version = ''
+
+def isSnapshot = true
+
 pipeline {
   agent any
   stages {
@@ -30,7 +43,6 @@ pipeline {
           filepath = "target/${artifactId}-${version}.jar"
           isSnapshot = version.endsWith("-SNAPSHOT")
         }
-
       }
     }
 
