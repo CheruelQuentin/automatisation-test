@@ -1,4 +1,3 @@
-pipeline {
   def nexusId = 'nexus_localhost'
   def nexusUrl = 'http://localhost:8081'
   def mavenRepoId = 'nexusLocal'
@@ -10,6 +9,7 @@ pipeline {
   def packaging = ''
   def version = ''
   def isSnapshot = true
+pipeline {
   agent any
   stages {
     stage('Mvn and Java version') {
