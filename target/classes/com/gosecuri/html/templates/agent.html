@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Go Securi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="left-part">
+        <p id="agent-name"></p>
+      </div>
+      <div class="right-part">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/2/23/French_Identity_card_1988_-_1994.jpg"
+          alt="Carte d'identité"
+          id="identity"
+        />
+      </div>
+    </div>
+    <div class="body">
+      <div class="materiel">
+        <div>
+          <div class="checkbox" id="mousqueton"></div>
+          <label>Mousqueton</label>
+        </div>
+        <div>
+          <div class="checkbox" id="gants"></div>
+          <label>Gants d’intervention</label>
+        </div>
+        <div>
+          <div class="checkbox" id="brassard"></div>
+          <label>Brassard de sécurité</label>
+        </div>
+        <div>
+          <div class="checkbox" id="menottes"></div>
+          <label>Porte menottes</label>
+        </div>
+        <div>
+          <div class="checkbox" id="cyno"></div>
+          <label>Bandeau agent de sécurité cynophile</label>
+        </div>
+        <div>
+          <div class="checkbox" id="talky"></div>
+          <label>Talkies walkies</label>
+        </div>
+        <div>
+          <div class="checkbox" id="lampe"></div>
+          <label>Lampe torche</label>
+        </div>
+        <div>
+          <div class="checkbox" id="kit"></div>
+          <label>Kit oreillette</label>
+        </div>
+        <div>
+          <div class="checkbox" id="taser"></div>
+          <label>Tasers</label>
+        </div>
+        <div>
+          <div class="checkbox" id="lacrymo"></div>
+          <label>Bombes lacrymogènes</label>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+  }
+
+  .header .right-part img {
+    width: 50%;
+  }
+
+  .header .right-part {
+    display: flex;
+    justify-content: right;
+  }
+
+  img {
+    width: 700px;
+  }
+
+  .body .materiel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0 40%;
+    margin-top: 100px;
+  }
+
+  .materiel div {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+  }
+
+  .body .materiel div input {
+    margin: 0 0 0 15px;
+  }
+
+  .header .left-part p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .checkbox {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgb(128, 128, 128);
+    border-radius: 3px;
+    background-color: rgba(128, 128, 128, 0.05);
+    line-height: 0;
+  }
+
+  .checked {
+    background-color: #3484ed;
+  }
+
+  .checked::before {
+    content: "\2713";
+    color: white;
+    position: absolute;
+    top: 7px;
+    left: 2px;
+    font-size: 0.85rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    .header {
+      flex-direction: column;
+    }
+
+    .header .left-part {
+      justify-content: center;
+    }
+
+    .header .right-part {
+      margin: 25px 0 0 0;
+      justify-content: center;
+    }
+
+    .body .materiel {
+      width: max-content;
+      padding: 0;
+      margin: 100px auto 0 auto;
+    }
+
+    #agent-name {
+      text-align: center;
+    }
+  }
+</style>
