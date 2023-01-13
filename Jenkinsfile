@@ -31,13 +31,6 @@ pipeline {
         sh 'mvn clean;mvn install ;mvn compile assembly:single;'
       }
     }
-
-    stage('SonarQube') {
-      steps {
-        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_b0f241d10c6997fab010bd36634a57a2c4935b2a'
-      }
-    }
-
     stage('Get info from POM') {
           steps {
             script {
@@ -58,23 +51,28 @@ pipeline {
           }
       }
 
-      stage('Build') {
-          steps {
-              sh 'mvn clean package'
-          }
-      }
-      stage('Push SNAPSHOT to Nexus') {
-        when { expression { isSnapshot } }
+    stage('Build') {
         steps {
-          sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Dusername='admin' -Dpwd='admin' -Durl=${nexusUrl}/repository/${nexusRepoSnapshot}/ -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
+            sh 'mvn clean package'
         }
+    }
+    stage('Push SNAPSHOT to Nexus') {
+      when { expression { isSnapshot } }
+      steps {
+        sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Dusername='admin' -Dpwd='admin' -Durl=${nexusUrl}/repository/${nexusRepoSnapshot}/ -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
       }
+    }
 
-      stage('Push RELEASE to Nexus') {
-        when { expression { !isSnapshot }}
-        steps {
-          nexusPublisher(nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]])
-        }
+    stage('Push RELEASE to Nexus') {
+      when { expression { !isSnapshot }}
+      steps {
+        nexusPublisher(nexusInstanceId: 'nexus_localhost', nexusRepositoryId: "${nexusRepoRelease}", packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${filepath}"]], mavenCoordinate: [artifactId: "${artifactId}", groupId: "${groupId}", packaging: "${packaging}", version: "${version}"]]])
       }
+    }
+    stage('SonarQube') {
+      steps {
+        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_b0f241d10c6997fab010bd36634a57a2c4935b2a'
+      }
+    }
   }
 }
