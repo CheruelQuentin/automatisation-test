@@ -42,7 +42,7 @@ pipeline {
 
     stage('SonarQube') {
       steps {
-        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_f547db3f7da9925a15ce6dea1eaf96eceb3a366e'
+        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar_test -Dsonar.host.url=http://localhost:9000  -Dsonar.login=sqp_b0f241d10c6997fab010bd36634a57a2c4935b2a'
       }
     }
 
