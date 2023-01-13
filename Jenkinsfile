@@ -42,12 +42,7 @@ java -version'''
     }
 
     stage('Push SNAPSHOT to Nexus') {
-      when {
-        expression {
-          isSnapshot
-        }
-
-      }
+      when { expression { isSnapshot} }
       steps {
         sh "mvn deploy:deploy-file -e -DgroupId=${groupId} -Dversion=${version} -Dpackaging=${packaging} -Durl=${nexusUrl}/repository/${nexusRepoSnapshot} -Dfile=${filepath} -DartifactId=${artifactId} -DrepositoryId=${mavenRepoId}"
       }
